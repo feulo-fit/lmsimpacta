@@ -1,1 +1,93 @@
 {% extends "base.html" %}
+
+{% load static %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+
+{% block titulo %}Home{% endblock %}
+
+
+{% block main %}
+<aside class="jumbotron container">
+    <h1 class="display-4">Vestibular para o próximo semestre! </h1>
+    <p class="lead">Faça já a sua inscrição e garanta o seu futuro.</p>
+    <p class="text-center">
+        <a class="btn btn-primary btn-lg" href="#" role="button">Inscreva-se Já!</a>
+    </p>
+</aside>
+<section class="container marketing">
+    <h1>Prêmios e Reconhecimentos</h1>
+    <!-- Three columns of text below the carousel -->
+    <div class="card-deck justify-content-around">
+        <article class="card text-center bg-dark text-white p-2">
+        <img class="card-img-top premio" src="{% static 'imagens/premios/enade-ADM.png' %}" alt="Card image cap">
+        <h5 class="card-title">Top 10 ENADE/MEC SP</h5>
+        <h6 class="card-subtitle mb-2 text-primary font-weight-bold">Graduação em Administração</h6>
+        <p class="card-text">
+            Nota 4 na avaliação do MEC – 10.ª maior nota entre as faculdades privadas da cidade de São Paulo.
+            </p>
+            <p class="card-text"></p>
+            3 estrelas na avaliação realizada pelo Guia do Estudante, da Editora Abril, que seleciona os melhores cursos para os estudantes que estão se preparando para o vestibular.
+            </p> 
+            <p class="card-text"></p>
+            Destaque no portal da Revista Exame como o curso que está entre os melhores do Brasil. (06/2017)
+        </p>
+        <p><a class="btn btn-primary" href="#" role="button">Confira mais sobre o curso</a></p>
+        </article><!-- /.col-lg-4 -->
+        <article class="card text-center bg-dark text-white p-2">
+            <img class="card-img-top premio" src="{% static 'imagens/premios/enade-ADS.png' %}" alt="Card image cap">
+            <h5 class="card-title">Maior Nota ENADE SP</h5>
+            <h6 class="card-subtitle mb-2 text-primary font-weight-bold">Graduação em Análise e Desenvolvimento de Sistemas</h6>
+            <p class="card-text">Nota 4 na avaliação do ENADE/MEC - 1.º melhor curso da cidade de São Paulo.</p>
+            <p><a class="btn btn-primary" href="#" role="button">Confira mais sobre o curso</a></p>
+        </article><!-- /.col-lg-4 -->
+        <article class="card text-center bg-dark text-white p-2">
+            <img class="card-img-top premio" src="{% static 'imagens/premios/enade-RD.png' %}" alt="Card image cap">
+            <h5 class="card-title">Top 4 ENADE/MEC SP</h5>
+            <h6 class="card-subtitle mb-2 text-primary font-weight-bold">Graduação em Redes de Computadores</h6>
+            <p class="card-text">Nota 3 na avaliação do ENADE/MEC - 4.º melhor curso da cidade de São Paulo.</p>
+        <p><a class="btn btn-primary" href="#" role="button">Confira mais sobre o curso</a></p>
+        </article><!-- /.col-lg-4 -->
+        <article class="card text-center bg-dark text-white p-2">
+            <img class="card-img-top premio" src="{% static 'imagens/premios/enade-SI.png' %}" alt="Card image cap">
+            <h5 class="card-title">Top 3 ENADE/MEC SP</h5>
+            <h6 class="card-subtitle mb-2 text-primary font-weight-bold">Graduação em Sistemas da Informação</h6>
+            <p class="card-text">Nota 4 na avaliação do ENADE/MEC - 3.º melhor curso da cidade de São Paulo.</p>
+        <p><a class="btn btn-primary" href="#" role="button">Confira mais sobre o curso</a></p>
+        </article><!-- /.col-lg-4 -->
+    </div><!-- /.row -->
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        <div class="col-md-7">
+        <h2 class="featurette-heading">Conheça o Smartclass</h2>
+        <p class="lead">As salas de aula da Faculdade Impacta são equipadas com lousas eletrônicas, que capturam
+            todos os pontos das aulas <strong>presenciais</strong>, como voz, escrita <strong>dinâmica</strong>,
+            vídeos e navegação do professor. Todo o conteúdo é gravado e disponibilizado em uma sala de ensino
+            virtual para que o aluno assista quando e onde quiser, de qualquer plataforma digital.</p>
+        </div>
+        <div class="col-md-5">
+        <img class="featurette-image img-fluid mx-auto" 
+        src="{% static 'imagens/play-smartclass.jpg' %}" alt="play do smartclass">
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        <h2 class="featurette-heading">Impacta Empreenda 360 Graus</span></h2>
+        <p class="lead">
+            Por meio da OPE – Oficina Projeto Empresa, que é realizada durante o curso, o aluno tem a oportunidade de construir sua própria startup. O programa de incentivo ao empreendedorismo tem o apoio de grandes nomes do mercado, como a FIESP.
+        </p>
+        <p class="lead">
+            Alguns cases de sucesso já foram realizados por alunos Impacta, como o Projeto “Desperta Saúde” – Universidade São Camilo e Centro Cyber Segurança Impacta.
+        </p>
+    </div>
+
+    <hr class="featurette-divider">
+
+</section>
+{% endblock %}

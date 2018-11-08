@@ -1,0 +1,9 @@
+img.premio {
+    width: 150px;
+    align-self: center;
+}
+
+div.card-deck article.card {
+    flex: 1 0 45%;
+    margin: 10px 15px;
+}
