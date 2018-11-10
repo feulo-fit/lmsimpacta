@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from .usuarios import Aluno, Coordenador, Professor
+from lms.models import Aluno, Coordenador, Professor
 
 class Disciplina(models.Model):
     nome = models.CharField(max_length=255, unique=True)
