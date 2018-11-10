@@ -1,10 +1,10 @@
 from django.db import models
-from datetime import date
+from django.utils import timezone
 from .usuarios import Aluno, Coordenador, Professor
 
 class Disciplina(models.Model):
     nome = models.CharField(max_length=255, unique=True)
-    data = models.DateField(default=date.today(), blank=True, null=True)
+    data = models.DateField(default=timezone.now, blank=True, null=True)
     status = models.CharField(max_length=50, default='Aberta', blank=True, null=True)
     plano_ensino = models.TextField(max_length=500)
     carga_horaria = models.IntegerField()
@@ -49,5 +49,5 @@ class SolicitacaoMatricula(models.Model):
     aluno = models.ForeignKey(Aluno, models.PROTECT)
     disciplina_ofertada = models.ForeignKey(DisciplinaOfertada, models.PROTECT)
     coordenador = models.ForeignKey(Coordenador, models.PROTECT, default=None, blank=True, null=True)
-    data = models.DateField(default=date.today(), blank=True, null=True, editable=False)
+    data = models.DateField(default=timezone.now, blank=True, null=True, editable=False)
     status = models.CharField(max_length=50, default='Solicitada', blank=True, null=True)
