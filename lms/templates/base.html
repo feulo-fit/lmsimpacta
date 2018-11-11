@@ -80,6 +80,11 @@
     </nav>
   </header>
   <main role="main">
+    {% if mensagem %}
+      <div class="alert alert-{{ mensagem.tipo }}" role="alert">
+        {{ mensagem.texto }}
+      </div>
+    {% endif %}
     {% block main %}
 
     {% endblock %}

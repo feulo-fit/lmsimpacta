@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block main %}
-<h1>Entre em Contato!</h1>
-<form method="POST">
+<h1 class="text-center">Entre em Contato!</h1>
+<form method="POST" novalidate>
     {% csrf_token %}
     
     {% for hidden_field in form.hidden_fields %}
@@ -35,6 +35,9 @@
             {% endif %}
         </div>
     {% endfor %}
+    <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </div>
 
 </form>
 {% endblock main %}

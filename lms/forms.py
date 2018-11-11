@@ -3,6 +3,7 @@ from django import forms
 from django.core.mail import send_mail
 
 ASSUNTOS = (
+    ('', ' - Selecione um - '),
     ('B', 'Bug'),
     ('R', 'Reclamação'),
     ('S', 'Sugestão')
@@ -33,6 +34,6 @@ class ContatoForm(forms.Form):
         send_mail(
             'Mensagem Assunto '+self.get_assunto_display(),
             self.cleaned_data['mensagem'],
-            from_email,
-            [recepient]
+            'contato@impacta.edu.br',
+            [self.cleaned_data['email']]
         )
