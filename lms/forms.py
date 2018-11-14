@@ -1,5 +1,5 @@
 from django import forms
-
+from django.conf import settings
 from django.core.mail import send_mail
 
 ASSUNTOS = (
@@ -31,9 +31,10 @@ class ContatoForm(forms.Form):
     )
 
     def enviar_email(self):
+        assunto = self.cleaned_data['assunto']
         send_mail(
-            'Mensagem Assunto '+self.get_assunto_display(),
+            'Mensagem Assunto '+dict(ASSUNTOS)[assunto],
             self.cleaned_data['mensagem'],
-            'contato@impacta.edu.br',
-            [self.cleaned_data['email']]
+            self.cleaned_data['email'],
+            [settings.EMAIL_CONTATO]
         )
