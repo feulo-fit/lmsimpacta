@@ -1,0 +1,2 @@
+class MensagemSemMatriculaException(Exception):
+    pass

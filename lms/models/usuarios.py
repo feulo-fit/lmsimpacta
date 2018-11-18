@@ -3,6 +3,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
 from django.core.files.uploadedfile import UploadedFile
+from lms.models import MensagemSemMatriculaException
+from chat.models import Mensagem
 
 # Create your models here.
 class Usuario(models.Model):
@@ -41,6 +43,20 @@ class Aluno(Usuario, Pessoa):
             return fs.url(self.foto)
 
         return None
+
+    def envia_mensagem(self, professor, assunto, referencia, conteudo):
+        from lms.models import SolicitacaoMatricula
+        qs = SolicitacaoMatricula.objects\
+            .filter(disciplina_ofertada__professor = professor)\
+            .filter(aluno=self)
+
+        if qs.count() < 1:
+            raise MensagemSemMatriculaException()
+
+        m = Mensagem(aluno=self, professor=professor, assunto=assunto, referencia=referencia, conteudo=conteudo)
+        m.save()
+        return m
+
 
 class Professor(Usuario, Pessoa):
     apelido = models.CharField(max_length=255)
