@@ -91,3 +91,20 @@ class Professor(Usuario, Pessoa):
             mensagens.append(m)
 
         return mensagens
+
+    def vincula_atividade(self, atividade, disciplina_ofertada, data_inicio, data_fim, rotulo):
+        from lms.models import AtividadeVinculada
+        av = AtividadeVinculada(professor=self,
+                                atividade=atividade,
+                                disciplina_ofertada=disciplina_ofertada,
+                                data_inicio=data_inicio,
+                                data_fim=data_fim,
+                                rotulo=rotulo,
+                                status = 'Aberta' if data_inicio >= date.today() else 'Disponibilizada')
+        av.save()
+        return av
+
+
+
+
+
