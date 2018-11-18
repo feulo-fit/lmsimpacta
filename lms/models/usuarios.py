@@ -61,3 +61,33 @@ class Aluno(Usuario, Pessoa):
 class Professor(Usuario, Pessoa):
     apelido = models.CharField(max_length=255)
 
+    def envia_mensagem_aluno(self, aluno, assunto, referencia, conteudo):
+        from lms.models import SolicitacaoMatricula
+        qs = SolicitacaoMatricula.objects \
+            .filter(disciplina_ofertada__professor=self) \
+            .filter(aluno=aluno)
+
+        if qs.count() < 1:
+            raise MensagemSemMatriculaException()
+
+        m = Mensagem(aluno=aluno, professor=self, assunto=assunto, referencia=referencia, conteudo=conteudo)
+        m.save()
+        return m
+
+    def envia_mensagem_turma(self, disciplina_ofertada, assunto, referencia, conteudo):
+        from lms.models import SolicitacaoMatricula
+        mensagens = []
+        qs = SolicitacaoMatricula.objects\
+            .filter(disciplina_ofertada__professor = self)\
+            .filter(disciplina_ofertada=disciplina_ofertada)
+
+        if qs.count() < 1:
+            raise MensagemSemMatriculaException()
+
+        alunos = [matricula.aluno for matricula in qs]
+        for aluno in alunos:
+            m = Mensagem(aluno=aluno, professor=self, assunto=assunto, referencia=referencia, conteudo=conteudo)
+            m.save()
+            mensagens.append(m)
+
+        return mensagens
