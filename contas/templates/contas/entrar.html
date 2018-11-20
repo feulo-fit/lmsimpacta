@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    Entrar
+{% endblock %}
+
+{% block main %}
+<h1 class="text-center">Entrar!</h1>
+<form method="POST" novalidate>
+    {% csrf_token %}
+    
+    {% for hidden_field in form.hidden_fields %}
+        {{ hidden_field }}
+    {% endfor %}
+
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger" role="alert">
+            {% for error in form.non_field_errors %}
+            {{ error }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% for field in form.visible_fields %}
+        <div class="form-group">
+            {{ field.label_tag }}
+            {{ field }}
+
+            {% if field.errors %}
+                {% for error in field.errors %}
+                    <div class="text-danger">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endfor %}
+    <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </div>
+
+</form>
+{% endblock main %}
