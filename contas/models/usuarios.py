@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
-
+from django.shortcuts import reverse
 from datetime import date
 
 PERFIS = (
@@ -51,3 +51,8 @@ class Usuario(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
 
+    def get_absolute_url(self):
+        if self.tipo == 'C':
+            return reverse("admin:index")
+        else:
+            return reverse("lms:index")

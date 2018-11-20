@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 
 {% block titulo %}
-    Inscrever
+    Alterar Dados
 {% endblock %}
 
 {% block main %}
-<form method="POST" novalidate>
-    <h1>Vire nosso aluno!</h1>
+<h1 class="text-center">Atualize seus dados</h1>
+<form method="POST" enctype="multipart/form-data">
     {% include "includes/form-group.html" with form=form %}
     <div class="form-group text-center">
-        <button type="submit" class="btn btn-primary">Inscrever</button>
+        <button type="submit" class="btn btn-primary">Salvar</button>
     </div>
 
 </form>

@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
-from lms.models import Professor, DisciplinaOfertada, Aluno
+from contas.models import Professor, Aluno
+
+from lms.models import DisciplinaOfertada
 
 class Atividade(models.Model):
     titulo = models.CharField(max_length=255, unique=True)

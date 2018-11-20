@@ -1,8 +1,8 @@
 from django.db import models
 from django.utils import timezone
-from lms.models import Aluno, Professor
 
-# Create your models here.
+from contas.models import Aluno, Professor
+
 class Mensagem(models.Model):
     aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
     professor = models.ForeignKey(Professor, on_delete=models.PROTECT)

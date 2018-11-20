@@ -6,13 +6,12 @@ from django.core.files.uploadedfile import UploadedFile
 from lms.models import MensagemSemMatriculaException
 from chat.models import Mensagem
 
-# Create your models here.
+'''
 class Usuario(models.Model):
     login = models.CharField(max_length=100, unique=True)
     senha = models.CharField(max_length=100)
     dt_expiracao = models.DateField(default=date(year=1900, month=1, day=1), blank=True, null=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True, default=None)
-
+    #user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True, default=None)
 class Pessoa(models.Model):
     nome = models.CharField(max_length=255)
     email = models.CharField(max_length=255, unique=True)
@@ -104,7 +103,4 @@ class Professor(Usuario, Pessoa):
         av.save()
         return av
 
-
-
-
-
+'''

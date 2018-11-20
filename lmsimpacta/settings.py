@@ -134,3 +134,4 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # https://docs.djangoproject.com/pt-br/2.1/topics/auth/customizing/
 
 AUTH_USER_MODEL = 'contas.Usuario'
+LOGOUT_REDIRECT_URL = 'lms:index'
