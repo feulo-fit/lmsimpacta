@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'lms.apps.LmsConfig',
-    'chat.apps.ChatConfig'
+    'chat.apps.ChatConfig',
+    'contas.apps.ContasConfig'
 ]
 
 MIDDLEWARE = [
@@ -124,5 +125,11 @@ STATIC_URL = '/static/'
 
 # E-mail configs
 # https://docs.djangoproject.com/en/2.1/topics/email
+
 EMAIL_CONTATO = 'contato@impacta.edu.br'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Authentication and authorizations
+# https://docs.djangoproject.com/pt-br/2.1/topics/auth/customizing/
+
+AUTH_USER_MODEL = 'contas.Usuario'
