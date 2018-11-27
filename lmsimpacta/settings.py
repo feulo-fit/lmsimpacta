@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'lms.apps.LmsConfig',
+    'contas.apps.ContasConfig',
     'chat.apps.ChatConfig',
-    'contas.apps.ContasConfig'
+    'curriculo.apps.CurriculoConfig'
 ]
 
 MIDDLEWARE = [
@@ -66,6 +67,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # Nossos processors
+                'curriculo.context_processors.lista_cursos'
             ],
         },
     },

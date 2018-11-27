@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 
 {% block titulo %}
+ {{ curso.nome }}
 {% endblock titulo %}
 
+
 {% block main %}
+    <h1 class="text-center">{{ curso.nome }}</h1>
 {% endblock main %}

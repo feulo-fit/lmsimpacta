@@ -21,7 +21,8 @@ from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('lms.urls')),
-    path('', include('contas.urls'))
+    path('', include('contas.urls')),
+    path('cursos/', include('curriculo.urls'))
 ]
 
 if settings.DEBUG:
