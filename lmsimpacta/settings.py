@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'lms.apps.LmsConfig',
     'contas.apps.ContasConfig',
     'chat.apps.ChatConfig',
-    'curriculo.apps.CurriculoConfig'
+    'curriculo.apps.CurriculoConfig',
+    'restrito.apps.RestritoConfig'
 ]
 
 MIDDLEWARE = [
