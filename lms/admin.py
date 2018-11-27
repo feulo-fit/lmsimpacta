@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 
 #from lms.models.usuarios import Usuario, Aluno, Coordenador, Professor
-from lms.models.disciplinas import Curso, Disciplina, DisciplinaOfertada, SolicitacaoMatricula, Turma
+#from lms.models.disciplinas import Curso, Disciplina, DisciplinaOfertada, SolicitacaoMatricula, Turma
 from lms.models.atividades import Atividade, AtividadeVinculada, Entrega
 
 # Register admin behavior
@@ -24,11 +24,11 @@ from lms.models.atividades import Atividade, AtividadeVinculada, Entrega
 #admin.site.register(Professor)
 #admin.site.register(Coordenador)
 
-admin.site.register(Curso)
-admin.site.register(Disciplina)
-admin.site.register(DisciplinaOfertada)
-admin.site.register(SolicitacaoMatricula)
-admin.site.register(Turma)
+#admin.site.register(Curso)
+#admin.site.register(Disciplina)
+#admin.site.register(DisciplinaOfertada)
+#admin.site.register(SolicitacaoMatricula)
+#admin.site.register(Turma)
 
 admin.site.register(Atividade)
 admin.site.register(AtividadeVinculada)

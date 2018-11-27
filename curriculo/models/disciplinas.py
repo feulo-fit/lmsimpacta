@@ -18,3 +18,6 @@ class Disciplina(models.Model):
     percentual_pratico = models.IntegerField()
     percentual_teorico = models.IntegerField()
     coordenador = models.ForeignKey(Coordenador, models.PROTECT)
+
+    def __str__(self):
+        return self.nome

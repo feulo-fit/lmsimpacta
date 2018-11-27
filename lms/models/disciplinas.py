@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 
 from contas.models import Aluno, Coordenador, Professor
+from curriculo.models import Curso, Disciplina
 '''
 class Disciplina(models.Model):
     nome = models.CharField(max_length=255, unique=True)
@@ -52,5 +53,4 @@ class SolicitacaoMatricula(models.Model):
     coordenador = models.ForeignKey(Coordenador, models.PROTECT, default=None, blank=True, null=True)
     data = models.DateField(default=timezone.now, blank=True, null=True, editable=False)
     status = models.CharField(max_length=50, default='Solicitada', blank=True, null=True)
-
 '''

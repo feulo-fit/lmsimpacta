@@ -1,10 +1,133 @@
 {% extends 'base.html' %}
 
 {% block titulo %}
- {{ curso.nome }}
+{{ curso.nome }}
 {% endblock titulo %}
 
 
 {% block main %}
-    <h1 class="text-center">{{ curso.nome }}</h1>
+<section class="container d-flex flex-wrap justify-content-between">
+    <h1 class="text-center w-100">{{ curso.nome }}</h1>
+
+    <section class="sobre border bg-light border-primary mx-2 p-3 w-75">
+        <h2>Sobre o Curso</h2>
+        
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam laoreet nec 
+            velit at viverra. Morbi convallis est porta sodales tristique. Fusce ut 
+            volutpat mi. Nam diam sem, dignissim eu varius quis, eleifend non eros.
+            Donec nec enim non arcu bibendum lacinia. Phasellus sed nisl libero. Sed 
+            et est turpis. Nam at justo euismod diam iaculis interdum. Suspendisse 
+            ex dui, cursus eu semper sed, bibendum ac mi. Donec est augue, pharetra 
+            blandit lacus sed, sodales ornare ex.
+        </p>
+
+        <p>
+            Curabitur tincidunt nunc ac interdum molestie. Aliquam erat volutpat.
+            Sed scelerisque vehicula justo at ultricies. In et tellus neque. 
+            Aenean nunc nisi, aliquet ut facilisis sed, imperdiet ac tellus. 
+            Nam congue, metus sed volutpat rutrum, magna mauris bibendum ante, a 
+            lacinia sem erat eget leo. Sed tincidunt nulla efficitur orci dignissim
+            feugiat. Sed imperdiet purus non tortor facilisis, et euismod ipsum commodo.
+        </p>
+        <p>
+            Donec tempus mollis quam ut congue. Vivamus at ipsum tristique, malesuada
+            purus eu, pellentesque eros. Vestibulum ante ipsum primis in faucibus orci
+            luctus et ultrices posuere cubilia Curae; Nullam mollis lobortis dolor, quis 
+            mattis libero elementum sed. Quisque posuere id nisi quis hendrerit. Nullam 
+            accumsan pretium mi at ullamcorper. Donec orci odio, blandit ac lacus sit amet, 
+            congue vulputate justo. Interdum et malesuada fames ac ante ipsum primis in 
+            faucibus. Phasellus nec libero eget urna luctus rutrum ac vel risus. 
+        </p>
+    </section>
+    <section class="informacoes mx-2">
+        <h2>Informações</h2>
+
+        <h3>GRADUAÇÃO</h3>
+
+        <p><span class="font-weight-bold text-primary">Período:</span></p>
+
+        <ul class="list-group">
+            <li class="list-group-item">
+                <span class="font-weight-bold text-primary">Matutino</span>
+                | 08h00 às 11h40 |
+            </li>
+            <li class="list-group-item">
+                <span class="font-weight-bold text-primary">Noturno</span>
+                | 19h00 às 23h40 |
+            </li>
+        </ul>
+
+        <p>
+            <span class="font-weight-bold text-primary">Duração:</span>
+            4 semestres
+        </p>
+
+    </section>
+    <section class="curriculo w-100 text-center my-2">
+        <h2>Matriz Curricular</h2>
+        <div class="row">
+            <div class="col-3">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active" id="v-pills-1-tab"
+                        data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1"
+                        aria-selected="true">1º Semestre</a>
+                        <a class="nav-link" id="v-pills-2-tab"
+                        data-toggle="pill" href="#v-pills-2" role="tab" aria-controls="v-pills-2"
+                        aria-selected="false">2º Semestre</a>
+                        <a class="nav-link" id="v-pills-3-tab"
+                        data-toggle="pill" href="#v-pills-3" role="tab" aria-controls="v-pills-3"
+                        aria-selected="false">3º Semestre</a>
+                        <a class="nav-link" id="v-pills-4-tab"
+                        data-toggle="pill" href="#v-pills-4" role="tab" aria-controls="v-pills-4"
+                        aria-selected="false">4º Semestre</a>
+                </div>
+            </div>
+            <div class="col-9">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-1"
+                        role="tabpanel" aria-labelledby="v-pills-1-tab">
+                        <div class="list-group text-left">
+                            <a href="#" class="list-group-item list-group-item-action">Disciplina 1: 80h</a>
+                            <a href="#" class="list-group-item list-group-item-action">Disciplina 2: 80h</a>
+                            <a href="#" class="list-group-item list-group-item-action">Disciplina 3: 80h</a>
+                            <a href="#" class="list-group-item list-group-item-action">Disciplina 4: 80h</a>
+                            <a href="#" class="list-group-item list-group-item-action">Disciplina 5: 80h</a>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-2"
+                        role="tabpanel" aria-labelledby="v-pills-2-tab">
+                        <div class="list-group text-left">
+                            <a href="#" class="list-group-item list-group-item-action">Disciplina 6: 80h</a>
+                            <a href="#" class="list-group-item list-group-item-action">Disciplina 7: 80h</a>
+                            <a href="#" class="list-group-item list-group-item-action">Disciplina 8: 80h</a>
+                            <a href="#" class="list-group-item list-group-item-action">Disciplina 9: 80h</a>
+                            <a href="#" class="list-group-item list-group-item-action">Disciplina 10: 80h</a>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-3"
+                        role="tabpanel" aria-labelledby="v-pills-3-tab">
+                        <div class="list-group text-left">
+                            <a href="#" class="list-group-item list-group-item-action">Disciplina 11: 80h</a>
+                            <a href="#" class="list-group-item list-group-item-action">Disciplina 12: 80h</a>
+                            <a href="#" class="list-group-item list-group-item-action">Disciplina 13: 80h</a>
+                            <a href="#" class="list-group-item list-group-item-action">Disciplina 14: 80h</a>
+                            <a href="#" class="list-group-item list-group-item-action">Disciplina 15: 80h</a>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-4"
+                        role="tabpanel" aria-labelledby="v-pills-4-tab">
+                        <div class="list-group text-left">
+                            <a href="#" class="list-group-item list-group-item-action">Disciplina 16: 80h</a>
+                            <a href="#" class="list-group-item list-group-item-action">Disciplina 17: 80h</a>
+                            <a href="#" class="list-group-item list-group-item-action">Disciplina 18: 80h</a>
+                            <a href="#" class="list-group-item list-group-item-action">Disciplina 19: 80h</a>
+                            <a href="#" class="list-group-item list-group-item-action">Disciplina 20: 80h</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
 {% endblock main %}
