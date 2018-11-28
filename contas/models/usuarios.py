@@ -12,7 +12,7 @@ PERFIS = (
 class UsuarioManager(BaseUserManager):
     use_in_migrations = True
 
-    def _create_user(self, login, password, **extra_fields):
+    def create_user(self, login, password=None, **extra_fields):
         if not login:
             raise ValueError('O nome de login é obrigatório')
         login = self.model.normalize_username(login)
@@ -21,12 +21,20 @@ class UsuarioManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_user(self, login, password=None, **extra_fields):
-        return self._create_user(login, password, **extra_fields)
-
     def create_superuser(self, login, password, **extra_fields):
-        extra_fields.setdefault('tipo', 'C')
-        return self._create_user(login, password, **extra_fields)
+        if not login:
+            raise ValueError('O nome de login é obrigatório')
+        from contas.models import Coordenador
+        usuario = Coordenador()
+        login = self.model.normalize_username(login)
+        usuario.login = login
+        usuario.nome = login
+        usuario.celular = login
+        usuario.email = login
+        usuario.set_password(password)
+        usuario.tipo = 'C'
+        usuario.save(using=self._db)
+        return usuario
 
 # Create your models here.
 class Usuario(AbstractBaseUser):
@@ -44,7 +52,16 @@ class Usuario(AbstractBaseUser):
     @property
     def is_staff(self):
         return self.tipo == 'C'
-    
+
+    @property
+    def perfil(self):
+        if self.tipo == 'A':
+            return self.aluno
+        elif self.tipo == 'P':
+            return self.professor
+        else:
+            return self.coordenador
+
     def has_perm(self, perm, obj=None):
         return True
 
@@ -52,7 +69,4 @@ class Usuario(AbstractBaseUser):
         return True
 
     def get_absolute_url(self):
-        if self.tipo == 'C':
-            return reverse("admin:index")
-        else:
-            return reverse("lms:index")
+        return self.perfil.get_absolute_url()

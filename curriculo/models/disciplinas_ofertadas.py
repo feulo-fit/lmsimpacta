@@ -16,5 +16,10 @@ class DisciplinaOfertada(models.Model):
     criterio_avaliacao = models.TextField(max_length=500, default=None, blank=True, null=True)
     plano_aulas = models.TextField(max_length=500, default=None, blank=True, null=True)
 
+    def __str__(self):
+        return "{}-{}-{}".format(self.curso.sigla, self.disciplina.nome, self.turma)
+
     class Meta:
+        verbose_name = 'oferta de disciplina'
+        verbose_name_plural = 'ofertas de disciplinas'
         unique_together = ("disciplina", "curso", "turma")

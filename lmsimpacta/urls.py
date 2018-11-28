@@ -22,7 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('lms.urls')),
     path('', include('contas.urls')),
-    path('cursos/', include('curriculo.urls'))
+    path('cursos/', include('curriculo.urls')),
+    path('restrito/', include('restrito.urls'))
 ]
 
 if settings.DEBUG:

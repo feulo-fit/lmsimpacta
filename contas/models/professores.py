@@ -1,8 +1,9 @@
 from django.db import models
+from django.urls import reverse
 
 from contas.models import Usuario, Pessoa
 
-class Professor(Usuario, Pessoa):
+class Professor(Pessoa, Usuario):
     
     apelido = models.CharField(max_length=255)
 
@@ -48,6 +49,9 @@ class Professor(Usuario, Pessoa):
                                 status = 'Aberta' if data_inicio >= date.today() else 'Disponibilizada')
         av.save()
         return av
+
+    def get_absolute_url(self):
+        return reverse("restrito:area_professor")
 
     class Meta:
         verbose_name = 'professor'

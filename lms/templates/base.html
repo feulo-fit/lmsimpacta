@@ -65,7 +65,7 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-                {% if user.tipo == 'A' %}
+                {% if user.tipo == 'A' and user.aluno.foto %}
                   <img src="{% get_media_prefix %}{{ user.aluno.foto }}" class="avatar" alt="foto do usuário" />
                 {% else %}
                   <img src="{% static 'imagens/profile.png' %}" class="avatar" alt="foto do usuário" />

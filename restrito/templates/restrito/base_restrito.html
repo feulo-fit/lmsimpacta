@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    Área do {{ user.get_tipo_display }}
+{% endblock titulo %}
+
+{% block main %}
+    <section class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">Olá {{ user }}</h1>
+            <p class="lead">
+                <span class="font-weight-bold">E-mail:</span>
+                {{ user.perfil.email }}
+            </p>
+        </div>
+    </section>
+    <section class="cursos atuais">
+        <h2>Meus cursos de 2018/2</h2>
+
+    </section>
+{% endblock main %}
