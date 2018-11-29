@@ -17,7 +17,7 @@ class Aluno(Pessoa, Usuario):
     foto = models.ImageField(upload_to=diretorio_aluno, blank=True, null=True)
     
     def envia_mensagem(self, professor, assunto, referencia, conteudo):
-        from lms.models import SolicitacaoMatricula
+        from restrito.models import SolicitacaoMatricula
         qs = SolicitacaoMatricula.objects\
             .filter(disciplina_ofertada__professor = professor)\
             .filter(aluno=self)
