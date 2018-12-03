@@ -12,7 +12,7 @@ PERFIS = (
 class UsuarioManager(BaseUserManager):
     use_in_migrations = True
 
-    def create_user(self, login, password=None, **extra_fields):
+    def _create_user(self, login, password=None, **extra_fields):
         if not login:
             raise ValueError('O nome de login é obrigatório')
         login = self.model.normalize_username(login)
@@ -21,20 +21,17 @@ class UsuarioManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+    def create_user(self, login, password=None, **extra_fields):
+        return self._create_user(login, password, **extra_fields)
+
     def create_superuser(self, login, password, **extra_fields):
-        if not login:
-            raise ValueError('O nome de login é obrigatório')
         from contas.models import Coordenador
-        usuario = Coordenador()
-        login = self.model.normalize_username(login)
-        usuario.login = login
-        usuario.nome = login
-        usuario.celular = login
-        usuario.email = login
-        usuario.set_password(password)
-        usuario.tipo = 'C'
-        usuario.save(using=self._db)
-        return usuario
+        self.model = Coordenador
+        extra_fields.setdefault('tipo', 'C')
+        extra_fields.setdefault('nome', login)
+        extra_fields.setdefault('celular', login)
+        extra_fields.setdefault('email', login)
+        return self._create_user(login, password, **extra_fields)
 
 # Create your models here.
 class Usuario(AbstractBaseUser):
