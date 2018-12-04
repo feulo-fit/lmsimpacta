@@ -50,9 +50,6 @@ class Professor(Pessoa, Usuario):
         av.save()
         return av
 
-    def get_absolute_url(self):
-        return reverse("restrito:area_professor")
-
     class Meta:
         verbose_name = 'professor'
         verbose_name_plural = 'professores'

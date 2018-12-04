@@ -18,6 +18,16 @@ class DisciplinaOfertadaQuery(QuerySet):
             turma__semestre=semestre,
             turma__ano=ano
         )
+    
+    def disciplinas_professor(self, professor, ano, semestre):
+        return self.annotate(num_alunos=models.Count(
+            'solicitacaomatricula__aluno',
+            filter=models.Q(solicitacaomatricula__status='Aprovada')
+        )).filter(
+            professor=professor,
+            turma__semestre=semestre,
+            turma__ano=ano
+        )
 
 class DisciplinaOfertada(models.Model):
     coordenador = models.ForeignKey(Coordenador, models.PROTECT)

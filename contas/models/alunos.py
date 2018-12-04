@@ -44,9 +44,6 @@ class Aluno(Pessoa, Usuario):
 
         super().save(*args, **kwargs)
 
-    def get_absolute_url(self):
-        return reverse("restrito:area_aluno")
-
     class Meta:
         verbose_name = 'aluno'
         verbose_name_plural = 'alunos'

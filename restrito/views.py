@@ -1,28 +1,39 @@
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 from contas.models import Aluno
 from curriculo.models import DisciplinaOfertada as DO
-from restrito.models import SolicitacaoMatricula as SO
-from lmsimpacta.utils import get_semestre_atual
+from restrito.models import (SolicitacaoMatricula as SO, Atividade)
+from lmsimpacta.utils import get_semestre_atual, checa_nao_coordenador, checa_professor
 
 @login_required
-def area_aluno(request):
+@user_passes_test(checa_nao_coordenador)
+def home(request):
     ano, semestre = get_semestre_atual()
-    context = {
-        'ano': ano,
-        'semestre': semestre,
-        'cursos_atuais': DO.objects.disciplinas_aluno(
+    if request.user.tipo == 'A':
+        cursos = DO.objects.disciplinas_aluno(
             request.user.aluno,
             ano,
             semestre
         )
+    else:
+        cursos = DO.objects.disciplinas_professor(
+            request.user.professor,
+            ano,
+            semestre
+        )
+
+    context = {
+        'ano': ano,
+        'semestre': semestre,
+        'cursos_atuais': cursos
     }
-    return render(request, 'restrito/area_aluno.html', context)
+    return render(request, 'restrito/home.html', context)
 
 @login_required
-def turma_aluno(request, id):
+@user_passes_test(checa_nao_coordenador)
+def turma(request, id):
     do = get_object_or_404(DO, id=id)
     context = {
         'turma': get_object_or_404(DO, id=id),
@@ -31,9 +42,12 @@ def turma_aluno(request, id):
             solicitacaomatricula__status='Aprovada'
         )
     }
-    return render(request, 'restrito/turma_aluno.html', context)
+    return render(request, 'restrito/turma.html', context)
 
 @login_required
-def area_professor(request):
-    context = {}
-    return render(request, 'restrito/area_professor.html', context)
+@user_passes_test(checa_professor)
+def atividades(request):
+    context = {
+        'atividades': Atividade.objects.filter(professor=request.user.professor)
+    }
+    return render(request, 'restrito/atividades_lista.html', context)
