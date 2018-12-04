@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+
+{% endblock titulo %}
+
+{% block main %}
+<h1 class="text-center">{{ titulo }}</h1>
+<form method="POST">
+    {% include "includes/form-group.html" with form=form %}
+    <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary">Salvar</button>
+    </div>
+
+</form>
+{% endblock main %}

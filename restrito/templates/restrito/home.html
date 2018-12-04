@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Área do {{ user.get_tipo_display }}
+{% endblock titulo %}
+
+{% block main %}
+<section class="jumbotron jumbotron-fluid">
+
+    <div class="container">
+        <h1 class="display-4">Olá {{ user }}</h1>
+        <p class="lead">
+            <span class="font-weight-bold">E-mail:</span>
+            {{ user.perfil.email }}
+            <br />
+            <span class="font-weight-bold">Celular:</span>
+            {{ user.perfil.celular }}
+        </p>
+    </div>
+</section>
+<section class="cursos atuais container">
+    <h2>Meus cursos de {{ ano }}/{{ semestre }}</h2>
+    <div class="card-deck">
+        {% for curso in cursos_atuais %}
+            <div class="card border-secondary" style="max-width: 18em;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ curso.disciplina.nome }}</h5>
+                    <p class="card-text">{{ curso.num_alunos }} alunos</p>
+                    <p class="card-text">
+                        <small class="text-muted">
+                            {% if curso.ultima_atividade %}
+                                Último exercício: {{ curso.ultima_atividade }}
+                            {% else %}
+                                Nenhuma atividade adicionado
+                            {% endif %}
+                        </small>
+                    </p>
+                    <a href="{% url 'restrito:turma' id=curso.id %}" class="btn btn-primary">Entrar na Turma</a>
+                </div>
+            </div>
+        {% empty %}
+            <div class="alert alert-warning" role="alert">
+                Você ainda não está matrículado neste semestre!
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock main %}
