@@ -50,3 +50,4 @@ class Aluno(Pessoa, Usuario):
     class Meta:
         verbose_name = 'aluno'
         verbose_name_plural = 'alunos'
+        ordering = ['nome', 'ra']

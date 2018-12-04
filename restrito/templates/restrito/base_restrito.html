@@ -28,12 +28,13 @@
                     <p class="card-text">
                         <small class="text-muted">
                             {% if curso.ultima_atividade %}
-                                Último exercício:
+                                Último exercício: {{ curso.ultima_atividade }}
                             {% else %}
                                 Nenhuma atividade adicionado
                             {% endif %}
                         </small>
                     </p>
+                    <a href="{% url 'restrito:disciplina_aluno' id=curso.id %}" class="btn btn-primary">Entrar na Turma</a>
                 </div>
             </div>
         {% empty %}

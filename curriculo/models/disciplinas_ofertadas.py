@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models.query import QuerySet
+from django.urls import reverse
 
 from contas.models import Coordenador, Professor
 from curriculo.models import Curso, Disciplina, Turma
