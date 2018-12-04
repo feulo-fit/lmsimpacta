@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    {{ turma }}
+{% endblock titulo %}
+
+{% block main %}
+<section class="container container-fluid">
+    <section class="row">
+        <h1 class="col-12">
+            {{ turma.disciplina }} 
+            {{ turma.curso.sigla }}{{ turma.turma.semestre }}{{ turma.turma.nome }} 
+            ({{ turma.turma.ano }})
+        </h1>
+        <p class="col-12">
+            Professor: {{ turma.professor }}
+            {% if user.tipo == 'A' %}
+                <a href="#" role="button" class="btn btn-outline-primary">Mandar Mensagem</a>
+            {% endif %}
+        </p>
+        <section class="col-sm-6">
+            <h2>Alunos</h2>
+            <div style="max-height: 500px; overflow: auto;">
+                <ul class="list-group">
+                    {% for aluno in alunos %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ aluno.ra}} - {{ aluno.nome}}
+                            {% if user.tipo == 'P' %}
+                                <span class="badge badge-primary badge-pill">0</span>
+                            {% endif %}
+                        </li>
+                    {% empty %}
+                        <div class="alert alert-warning" role="alert">
+                            Nenhum aluno matriculado ainda!
+                        </div>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+        <section class="col-sm-6">
+            <h2>Atividades</h2>
+            <div style="max-height: 500px; overflow: auto;">
+                <ul class="list-group">
+                    {% for atividade in atividades %}
+                        <li class="list-group-item">
+                            {{ atividade }}
+                        </li>
+                    {% empty %}
+                        <div class="alert alert-warning" role="alert">
+                            Nenhum atividade cadastrada ainda!
+                        </div>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+    </section>
+</section>
+{% endblock main %}
