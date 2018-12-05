@@ -12,4 +12,4 @@ class AtividadeVinculadaForm(forms.ModelForm):
 
     class Meta:
         model = AtividadeVinculada
-        exclude = ('professor',)
+        exclude = ('professor', 'disciplina_ofertada', 'status')
