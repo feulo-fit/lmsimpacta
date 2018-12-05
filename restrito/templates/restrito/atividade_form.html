@@ -8,9 +8,9 @@
 <h1 class="text-center">{{ titulo }}</h1>
 <form method="POST">
     {% include "includes/form-group.html" with form=form %}
+    <input type="hidden" name="next" value="{{ request.GET.next }}">
     <div class="form-group text-center">
         <button type="submit" class="btn btn-primary">Salvar</button>
     </div>
-
 </form>
 {% endblock main %}

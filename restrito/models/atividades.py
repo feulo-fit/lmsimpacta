@@ -15,3 +15,6 @@ class Atividade(models.Model):
     tipo = models.CharField(max_length=20, choices=TIPO_ATIVIDADE)
     extras = models.CharField(max_length=250, default=None, blank=True, null=True)
     professor = models.ForeignKey(Professor, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return self.titulo

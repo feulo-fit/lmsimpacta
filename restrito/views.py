@@ -41,7 +41,8 @@ def turma(request, id_do):
         'alunos': Aluno.objects.filter(
             solicitacaomatricula__disciplina_ofertada=do,
             solicitacaomatricula__status='Aprovada'
-        )
+        ),
+        'atividades':AtividadeVinculada.objects.filter(disciplina_ofertada=do)
     }
     return render(request, 'restrito/turma.html', context)
 
@@ -57,8 +58,8 @@ def atividades(request):
 @user_passes_test(checa_professor)
 def atividades_form(request, id_do=None):
     context  = {}
-    if id:
-        atividade = get_object_or_404(Atividade, id=id)
+    if id_do:
+        atividade = get_object_or_404(Atividade, id=id_do)
         context['titulo'] = 'Alterando atividade '+atividade.titulo
     else:
         atividade = None
@@ -73,7 +74,11 @@ def atividades_form(request, id_do=None):
             'texto':'Atividade {} com sucesso!'.format('alterada' if id else 'incluída'),
             'tipo': 'success'
         }
-        return redirect('restrito:atividades', context)
+        nextUrl = request.POST.get("next", "")
+        if nextUrl:
+            return redirect(nextUrl)
+        else:
+            return redirect('restrito:atividades', context)
 
     context['form'] = form
     return render(request, 'restrito/atividade_form.html', context)
@@ -83,17 +88,19 @@ def atividades_form(request, id_do=None):
 def atividade_vinculada_form(request, id_do, id_vin=None):
     context  = {}
     do = get_object_or_404(DO, id=id_do)
-    form = AtividadeVinculadaForm(request.POST or None)
+    form = AtividadeVinculadaForm(request.user.professor, request.POST or None)
 
     if request.POST and form.is_valid():
-        atividade = form.save(commit=False)
-        atividade.professor = request.user.professor
-        atividade.save()
+        vinculada = form.save(commit=False)
+        vinculada.professor = request.user.professor
+        vinculada.disciplina_ofertada = do
+        vinculada.status = 'DISPONIBILIZADA'
+        vinculada.save()
         context['mensagem'] = {
             'texto':'Atividade vinculada com sucesso!',
             'tipo': 'success'
         }
-        return redirect('restrito:atividades', context)
+        return redirect('restrito:turma', id_do=id_do)
 
     context['form'] = form
     return render(request, 'restrito/atividade_vinculada_form.html', context)
