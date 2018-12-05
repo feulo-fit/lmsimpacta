@@ -51,3 +51,10 @@ def atividades(request):
         'atividades': Atividade.objects.filter(professor=request.user.professor)
     }
     return render(request, 'restrito/atividades_lista.html', context)
+
+@login_required
+@user_passes_test(checa_professor)
+def atividade_vinculada_form(request, id_do):
+    context = {}
+
+    return render(request, 'request/atividade_vinculada_form.html', context)
