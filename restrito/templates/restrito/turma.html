@@ -18,16 +18,13 @@
                 <a href="#" role="button" class="btn btn-outline-primary">Mandar Mensagem</a>
             {% endif %}
         </p>
-        <section class="col-sm-6">
+        <section class="col-sm-4">
             <h2>Alunos</h2>
             <div style="max-height: 500px; overflow: auto;">
                 <ul class="list-group">
                     {% for aluno in alunos %}
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             {{ aluno.ra}} - {{ aluno.nome}}
-                            {% if user.tipo == 'P' %}
-                                <span class="badge badge-primary badge-pill">0</span>
-                            {% endif %}
                         </li>
                     {% empty %}
                         <div class="alert alert-warning" role="alert">
@@ -37,7 +34,7 @@
                 </ul>
             </div>
         </section>
-        <section class="col-sm-6">
+        <section class="col-sm-8">
             <h2>Atividades</h2>
             {% if user.tipo == 'P' %}
                 <a class="btn btn-success mb-2" href="{% url 'restrito:vinculada_form' id_do=turma.id %}" role="button">Vincular uma Atividade</a>
@@ -45,8 +42,38 @@
             <div style="max-height: 500px; overflow: auto;">
                 <ul class="list-group">
                     {% for atividade in atividades %}
-                        <li class="list-group-item">
-                            {{ atividade }}
+                        <li class="list-group-item d-flex flex-row justify-content-between">
+                            <div class="flex-grow-1">
+                                <div class="d-flex flex-grow-1 justify-content-between">
+                                    <h2 class="mb-1">{{ atividade.rotulo }} - {{ atividade.atividade.titulo }}</h2>
+                                    <small>{{ atividade.get_status_display }}</small>
+                                </div>
+                                <p class="mb-1">{{ atividade.atividade.descricao }}</p>
+                                <p>De {{ atividade.data_inicio|date:'D d M'  }} a {{ atividade.data_fim|date:'D d M' }}</p>
+                                <p>
+                                    {% if user.tipo == 'A' %}
+                                        
+                                    {% else %}
+
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <div class="px-3">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Ações
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        {% if user.tipo == 'P' %}
+                                            <a class="dropdown-item" href="{% url 'restrito:vinculada_form' id_do=turma.id id_vin=atividade.id %}">Alterar</a>
+                                            <a class="dropdown-item" onclick="javascript:confirmar(event, '{{atividade}}', this.href);" href="{% url 'restrito:vinculada_remover' id_do=turma.id id_vin=atividade.id %}">Remover</a>
+                                            <a class="dropdown-item" href="{% url 'restrito:entregas' id_do=turma.id id_vin=atividade.id %}">Ver Entregas</a>
+                                        {% elif user.tipo == 'A' %}
+                                            <a class="dropdown-item" href="{% url 'restrito:entregar' id_do=turma.id id_vin=atividade.id %}"> Entregar </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
                         </li>
                     {% empty %}
                         <div class="alert alert-warning" role="alert">

@@ -1,30 +1,17 @@
-from django.utils import timezone
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required, user_passes_test
 
-from contas.models import Aluno
-from curriculo.models import DisciplinaOfertada as DO
-from restrito.forms import AtividadeForm, AtividadeVinculadaForm
-from restrito.models import (SolicitacaoMatricula as SO, Atividade, AtividadeVinculada)
-from lmsimpacta.utils import get_semestre_atual, checa_nao_coordenador, checa_professor
+from lmsimpacta.utils import checa_professor
 
 @login_required
-@user_passes_test(checa_nao_coordenador)
-def home(request):
+@user_passes_test(checa_professor)
+def home_professor(request):
     ano, semestre = get_semestre_atual()
-    if request.user.tipo == 'A':
-        cursos = DO.objects.disciplinas_aluno(
-            request.user.aluno,
-            ano,
-            semestre
-        )
-    else:
-        cursos = DO.objects.disciplinas_professor(
-            request.user.professor,
-            ano,
-            semestre
-        )
-
+    cursos = DO.objects.disciplinas_professor(
+        request.user.professor,
+        ano,
+        semestre
+    )
     context = {
         'ano': ano,
         'semestre': semestre,
@@ -33,8 +20,8 @@ def home(request):
     return render(request, 'restrito/home.html', context)
 
 @login_required
-@user_passes_test(checa_nao_coordenador)
-def turma(request, id_do):
+@user_passes_test(checa_professor)
+def turma_professor(request, id_do):
     do = get_object_or_404(DO, id=id_do)
     context = {
         'turma': do,
@@ -48,7 +35,7 @@ def turma(request, id_do):
 
 @login_required
 @user_passes_test(checa_professor)
-def atividades(request):
+def atividade_professor(request):
     context = {
         'atividades': Atividade.objects.filter(professor=request.user.professor)
     }
@@ -56,10 +43,10 @@ def atividades(request):
 
 @login_required
 @user_passes_test(checa_professor)
-def atividades_form(request, id_do=None):
+def atividade_form_professor(request, id=None):
     context  = {}
-    if id_do:
-        atividade = get_object_or_404(Atividade, id=id_do)
+    if id:
+        atividade = get_object_or_404(Atividade, id=id)
         context['titulo'] = 'Alterando atividade '+atividade.titulo
     else:
         atividade = None
@@ -78,18 +65,29 @@ def atividades_form(request, id_do=None):
         if nextUrl:
             return redirect(nextUrl)
         else:
-            return redirect('restrito:atividades', context)
+            return redirect('restrito:atividades')
 
     context['form'] = form
     return render(request, 'restrito/atividade_form.html', context)
 
 @login_required
 @user_passes_test(checa_professor)
-def atividade_vinculada_form(request, id_do, id_vin=None):
+def atividade_remover_professor(request, id=None):
+    atividade = get_object_or_404(Atividade, id=id)
+    atividade.delete()
+    return redirect('restrito:atividades')
+
+@login_required
+@user_passes_test(checa_professor)
+def atividade_vinculada_form_professor(request, id_do, id_vin=None):
     context  = {}
     do = get_object_or_404(DO, id=id_do)
-    form = AtividadeVinculadaForm(request.user.professor, request.POST or None)
+    if id_vin:
+        vinc = get_object_or_404(AtividadeVinculada, id=id_vin)
+    else:
+        vinc = None
 
+    form = AtividadeVinculadaForm(request.user.professor, request.POST or None, instance=vinc)
     if request.POST and form.is_valid():
         vinculada = form.save(commit=False)
         vinculada.professor = request.user.professor
@@ -104,3 +102,21 @@ def atividade_vinculada_form(request, id_do, id_vin=None):
 
     context['form'] = form
     return render(request, 'restrito/atividade_vinculada_form.html', context)
+
+@login_required
+@user_passes_test(checa_professor)
+def atividade_vinculada_remover_professor(request, id_do, id_vin):
+    atividade = get_object_or_404(AtividadeVinculada, id=id_vin)
+    atividade.delete()
+    return redirect('restrito:turma', id_do=id_do)
+
+@login_required
+@user_passes_test(checa_professor)
+def entrega_listar_professor(request, id_do, id_vin):
+    vinculada = get_object_or_404(AtividadeVinculada, id=id_vin)
+    entregas = Entrega.objects.filter(atividade_vinculada=vinculada)
+    context = {
+        "entregas": entregas,
+        "atividade": vinculada
+    }
+    return render(request, 'restrito/entregas_lista.html', context)

@@ -21,5 +21,8 @@ class AtividadeVinculada(models.Model):
     data_inicio = models.DateTimeField()
     data_fim = models.DateTimeField()
 
+    def __str__(self):
+        return "{}-{}".format(self.rotulo, self.atividade)
+
     class Meta:
         unique_together = ("atividade", "disciplina_ofertada", "rotulo")

@@ -20,7 +20,7 @@
                 </div>
                 <div class="px-3 d-flex flex-column justify-content-around">
                     <a class="btn btn-primary w-100" href="{% url 'restrito:atividade_form' id=atividade.id %}" role="button">Alterar</a>
-                    <a class="btn btn-danger w-100" href="#" role="button">Remover</a>
+                    <a class="btn btn-danger w-100" onclick="javascirpt:confirmar(event, '{{ atividade }}', this.href);" href="{% url 'restrito:atividade_remover' id=atividade.id %}" role="button">Remover</a>
                 </div>
             </li>
         {% empty %}

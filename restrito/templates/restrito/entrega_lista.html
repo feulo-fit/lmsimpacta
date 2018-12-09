@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+ Entregas de {{ atividade }}
+{% endblock titulo %}
+
+{% block main %}
+<section class="container">
+    <h1>Entregas de {{ atividade }}</h1>
+    <ul class="list-group">
+        {% for entrega in entregas %}
+            <li class="list-group-item"> {{ entrega }} </li>
+        {% empty %}
+            <li class="list-group-item alert alert-warning" role="alert">
+                Nenhuma entrega realizada ainda!
+            </li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock main %}

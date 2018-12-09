@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.admin import widgets
 
-from restrito.models import Atividade, AtividadeVinculada
+from restrito.models import Atividade, AtividadeVinculada, Entrega
 
 class AtividadeForm(forms.ModelForm):
 
@@ -14,9 +14,15 @@ class AtividadeVinculadaForm(forms.ModelForm):
     def __init__(self, professor, *args, **kwargs):
         super(AtividadeVinculadaForm, self).__init__(*args, **kwargs)
         self.fields['atividade'].queryset = Atividade.objects.filter(professor=professor)
-        #self.fields['data_inicio'].widget = widgets.AdminSplitDateTime()
-        #self.fields['data_fim'].widget = widgets.AdminSplitDateTime()
+        #self.fields['data_inicio'].widget = DateTimePicker()
+        #self.fields['data_fim'].widget = DateTimePicker()
 
     class Meta:
         model = AtividadeVinculada
         exclude = ('professor', 'disciplina_ofertada', 'status')
+
+class EntregaAlunoForm(forms.ModelForm):
+
+    class Meta:
+        model = Entrega
+        fields = ('titulo', 'resposta')

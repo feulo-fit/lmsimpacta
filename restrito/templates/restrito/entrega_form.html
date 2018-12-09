@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    Entregar {{ atividade }}
+{% endblock %}
+
+{% block main %}
+<form method="POST">
+    <h1> {{ atividade }} </h1>
+
+    <h2> Descrição </h2>
+    <p> {{ atividade.atividade.descricao }}</p>
+
+    <h2> Conteúdo </h2>
+    <p> {{ atividade.atividade.conteudo }}</p>
+
+    {% include "includes/form-group.html" with form=form %}
+    <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </div>
+
+</form>
+{% endblock main %}
