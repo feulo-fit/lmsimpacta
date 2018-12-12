@@ -44,7 +44,7 @@ def alterar_dados(request):
     usuario = request.user
     if usuario.tipo == 'A':
         form = AlunoAlteracaoForm(request.POST or None, request.FILES or None, instance=usuario.aluno)
-    if usuario.tipo == 'P':
+    elif usuario.tipo == 'P':
         form = ProfessorAlteracaoForm(request.POST or None, instance=usuario.professor)
     else:
         return redirect('admin:password_change')

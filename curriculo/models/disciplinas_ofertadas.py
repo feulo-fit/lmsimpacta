@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models.query import QuerySet
+from django.shortcuts import reverse
 from django.urls import reverse
 
 from contas.models import Coordenador, Professor
@@ -8,26 +9,21 @@ from lmsimpacta.utils import get_semestre_atual
 
 class DisciplinaOfertadaQuery(QuerySet):
 
-    def disciplinas_aluno(self, aluno, ano, semestre):
-        return self.annotate(num_alunos=models.Count(
+    def disciplinas_semestre(self, perfil, ano, semestre):
+        qs = self.annotate(num_alunos=models.Count(
             'solicitacaomatricula__aluno',
             filter=models.Q(solicitacaomatricula__status='Aprovada')
         )).filter(
-            solicitacaomatricula__aluno=aluno,
-            solicitacaomatricula__status='Aprovada',
             turma__semestre=semestre,
             turma__ano=ano
         )
-    
-    def disciplinas_professor(self, professor, ano, semestre):
-        return self.annotate(num_alunos=models.Count(
-            'solicitacaomatricula__aluno',
-            filter=models.Q(solicitacaomatricula__status='Aprovada')
-        )).filter(
-            professor=professor,
-            turma__semestre=semestre,
-            turma__ano=ano
-        )
+        if perfil.tipo == "A":        
+            return qs.filter(
+                solicitacaomatricula__aluno=perfil,
+                solicitacaomatricula__status='Aprovada',            
+            )
+        else:
+            return qs.filter(professor=perfil)
 
 class DisciplinaOfertada(models.Model):
     coordenador = models.ForeignKey(Coordenador, models.PROTECT)
@@ -46,6 +42,9 @@ class DisciplinaOfertada(models.Model):
 
     def __str__(self):
         return "{}-{}-{}".format(self.curso.sigla, self.disciplina.nome, self.turma)
+
+    def get_absolute_url(self):
+        return reverse("restrito:turma", kwargs={ "id_do": self.id })
 
     class Meta:
         verbose_name = 'oferta de disciplina'

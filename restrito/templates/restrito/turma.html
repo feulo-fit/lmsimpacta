@@ -14,9 +14,6 @@
         </h1>
         <p class="col-12">
             Professor: {{ turma.professor }}
-            {% if user.tipo == 'A' %}
-                <a href="#" role="button" class="btn btn-outline-primary">Mandar Mensagem</a>
-            {% endif %}
         </p>
         <section class="col-sm-4">
             <h2>Alunos</h2>
@@ -37,7 +34,7 @@
         <section class="col-sm-8">
             <h2>Atividades</h2>
             {% if user.tipo == 'P' %}
-                <a class="btn btn-success mb-2" href="{% url 'restrito:vinculada_form' id_do=turma.id %}" role="button">Vincular uma Atividade</a>
+               <a class="btn btn-success mb-2" href="{% url 'restrito:vinculada_form' id_do=turma.id %}" role="button">Vincular uma Atividade</a>
             {% endif %}
             <div style="max-height: 500px; overflow: auto;">
                 <ul class="list-group">
@@ -67,7 +64,7 @@
                                         {% if user.tipo == 'P' %}
                                             <a class="dropdown-item" href="{% url 'restrito:vinculada_form' id_do=turma.id id_vin=atividade.id %}">Alterar</a>
                                             <a class="dropdown-item" onclick="javascript:confirmar(event, '{{atividade}}', this.href);" href="{% url 'restrito:vinculada_remover' id_do=turma.id id_vin=atividade.id %}">Remover</a>
-                                            <a class="dropdown-item" href="{% url 'restrito:entregas' id_do=turma.id id_vin=atividade.id %}">Ver Entregas</a>
+                                            <a class="dropdown-item" href="{% url 'restrito:entrega_lista' id_do=turma.id id_vin=atividade.id %}">Ver Entregas</a>
                                         {% elif user.tipo == 'A' %}
                                             <a class="dropdown-item" href="{% url 'restrito:entregar' id_do=turma.id id_vin=atividade.id %}"> Entregar </a>
                                         {% endif %}

@@ -34,7 +34,7 @@
                             {% endif %}
                         </small>
                     </p>
-                    <a href="{% url 'restrito:turma' id_do=curso.id %}" class="btn btn-primary">Entrar na Turma</a>
+                    <a href="{{ curso.get_absolute_url }}" class="btn btn-primary">Entrar na Turma</a>
                 </div>
             </div>
         {% empty %}

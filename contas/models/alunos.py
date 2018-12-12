@@ -44,7 +44,11 @@ class Aluno(Pessoa, Usuario):
 
         super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse("restrito:home")
+
     class Meta:
         verbose_name = 'aluno'
         verbose_name_plural = 'alunos'
         ordering = ['nome', 'ra']
+        

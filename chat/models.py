@@ -1,11 +1,9 @@
 from django.db import models
 from django.utils import timezone
 
-from contas.models import Aluno, Professor
-
 class Mensagem(models.Model):
-    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
-    professor = models.ForeignKey(Professor, on_delete=models.PROTECT)
+    aluno = models.ForeignKey("contas.Aluno", on_delete=models.CASCADE)
+    professor = models.ForeignKey("contas.Professor", on_delete=models.PROTECT)
     assunto = models.CharField(max_length=255)
     referencia = models.CharField(max_length=255)
     conteudo = models.TextField(max_length=500)

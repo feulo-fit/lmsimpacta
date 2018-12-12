@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required, user_passes_test
 
 from curriculo.models import DisciplinaOfertada as DO
-from lmsimpacta.utils import checa_aluno
+from lmsimpacta.utils import checa_aluno, get_semestre_atual
 
 @login_required
 @user_passes_test(checa_aluno)

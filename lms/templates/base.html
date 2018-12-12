@@ -78,7 +78,7 @@
                   Área do {{ user.get_tipo_display }}
                 </a>
                 {% if user.tipo == 'P' %}
-                  <a class="dropdown-item" href="{% url 'restrito:atividades' %}">Atividades</a>
+                  <a class="dropdown-item" href="{% url 'restrito:atividade_lista' %}">Atividades</a>
                 {% endif %}
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{% url 'contas:alterar' %}">Meus Dados</a>
@@ -91,11 +91,16 @@
     </nav>
   </header>
   <main role="main">
-    {% if mensagem %}
-      <div class="alert alert-{{ mensagem.tipo }}" role="alert">
-        {{ mensagem.texto }}
+    {% for message in messages %}
+      <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        {{ message }}
       </div>
-    {% endif %}
+    {% endfor %}
+
+
     {% block main %}
 
     {% endblock %}

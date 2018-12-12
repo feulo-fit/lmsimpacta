@@ -1,16 +1,12 @@
 {% extends "base.html" %}
 
 {% block titulo %}
-    Vincule uma atividade
+    {{ titulo }}
 {% endblock titulo %}
 
 {% block main %}
 <h1 class="text-center">
-{% if form.instance %}
-    {{ form.instance }}
-{% else %}
-    Nova Vinculação
-{% endif %}
+    {{ titulo }}
 </h1>
 <form method="POST">
     <div class="alert alert-primary" role="alert">

@@ -66,8 +66,4 @@ class Usuario(AbstractBaseUser):
         return True
 
     def get_absolute_url(self):
-        if self.tipo == 'C':
-            return reverse('admin:index')
-        else:
-            return reverse('restrito:home')
-
+        return self.perfil.get_absolute_url()

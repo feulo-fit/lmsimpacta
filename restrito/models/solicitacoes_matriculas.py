@@ -2,14 +2,6 @@ from django.db import models
 from django.db.models.query import QuerySet
 from django.utils import timezone
 
-from contas.models import Aluno, Professor, Coordenador
-from curriculo.models import DisciplinaOfertada
-
-STATUS = (
-    ('Solicitada', 'Solicitada'),
-    ('Aprovada', 'Aprovada'),
-    ('Reprovada', 'Reprovada')
-)
 class SolicitacaoMatriculaQuery(QuerySet):
 
     def matriculas_aprovadas(self, aluno, ano, semestre):
@@ -24,9 +16,15 @@ class SolicitacaoMatriculaQuery(QuerySet):
         )
 
 class SolicitacaoMatricula(models.Model):
-    aluno = models.ForeignKey(Aluno, models.PROTECT)
-    disciplina_ofertada = models.ForeignKey(DisciplinaOfertada, models.PROTECT)
-    coordenador = models.ForeignKey(Coordenador, models.PROTECT, default=None, blank=True, null=True)
+    STATUS = (
+        ('Solicitada', 'Solicitada'),
+        ('Aprovada', 'Aprovada'),
+        ('Reprovada', 'Reprovada')
+    )
+
+    aluno = models.ForeignKey("contas.Aluno", models.PROTECT)
+    disciplina_ofertada = models.ForeignKey("curriculo.DisciplinaOfertada", models.PROTECT)
+    coordenador = models.ForeignKey("contas.Coordenador", models.PROTECT, default=None, blank=True, null=True)
     data = models.DateField(default=timezone.now, blank=True, null=True, editable=False)
     status = models.CharField(max_length=50, default='Solicitada', blank=True, null=True, choices=STATUS)
 
