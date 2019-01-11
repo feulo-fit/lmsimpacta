@@ -23,7 +23,8 @@ urlpatterns = [
     path('', include('lms.urls')),
     path('', include('contas.urls')),
     path('cursos/', include('curriculo.urls')),
-    path('restrito/', include('restrito.urls'))
+    path('restrito/', include('restrito.urls')),
+    path('mensagens/', include('chat.urls'))
 ]
 
 if settings.DEBUG:

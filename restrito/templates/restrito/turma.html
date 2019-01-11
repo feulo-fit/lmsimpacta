@@ -66,7 +66,7 @@
                                             <a class="dropdown-item" onclick="javascript:confirmar(event, '{{atividade}}', this.href);" href="{% url 'restrito:vinculada_remover' id_do=turma.id id_vin=atividade.id %}">Remover</a>
                                             <a class="dropdown-item" href="{% url 'restrito:entrega_lista' id_do=turma.id id_vin=atividade.id %}">Ver Entregas</a>
                                         {% elif user.tipo == 'A' %}
-                                            <a class="dropdown-item" href="{% url 'restrito:entregar' id_do=turma.id id_vin=atividade.id %}"> Entregar </a>
+                                            <a class="dropdown-item" href="{% url 'restrito:entrega_form' id_do=turma.id id_vin=atividade.id %}"> Entregar </a>
                                         {% endif %}
                                     </div>
                                 </div>

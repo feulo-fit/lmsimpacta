@@ -13,4 +13,5 @@ def get_semestre_atual():
     hoje = timezone.now()
     ano = hoje.year
     mes = hoje.month
-    return ano, 1 if mes <=6 else 2
+    #return ano, 1 if mes <=6 else 2
+    return 2018, 2

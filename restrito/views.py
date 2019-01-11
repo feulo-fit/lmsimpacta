@@ -4,9 +4,9 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from contas.models import Aluno
 from curriculo.models import DisciplinaOfertada as DO
-from restrito.forms import AtividadeForm, AtividadeVinculadaForm
+from restrito.forms import AtividadeForm, AtividadeVinculadaForm, EntregaAlunoForm
 from restrito.models import Atividade, AtividadeVinculada, Entrega
-from lmsimpacta.utils import checa_professor, get_semestre_atual
+from lmsimpacta.utils import checa_aluno, checa_professor, get_semestre_atual
 
 @login_required
 def home(request):
@@ -121,3 +121,21 @@ def entrega_listar(request, id_do, id_vin):
         "atividade": vinculada
     }
     return render(request, 'restrito/entrega_lista.html', context)
+
+@login_required
+@user_passes_test(checa_aluno)
+def entrega_form(request, id_do, id_vin, id_entrega=None):
+    context = {}
+    vinculada = get_object_or_404(AtividadeVinculada, id=id_vin)
+    entrega = get_object_or_404(Entrega, id=id, aluno=request.user.aluno) if id_entrega else None
+    form = EntregaAlunoForm(request.POST or None, instance=entrega)
+    if request.POST and form.is_valid():
+        entrega = form.save(commit=False)
+        entrega.atividade_vinculada = vinculada
+        entrega.aluno = request.user.aluno
+        entrega.save()
+        messages.success(request, 'Entrega realizada com sucesso!')
+        return redirect('restrito:turma', id_do=id_do)
+    context["form"] = form
+    context['atividade'] = vinculada
+    return render(request, 'restrito/entrega_form.html', context)

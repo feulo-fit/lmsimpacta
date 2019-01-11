@@ -77,6 +77,11 @@
                 <a class="dropdown-item" href="{{ user.get_absolute_url }}">
                   Área do {{ user.get_tipo_display }}
                 </a>
+                <a class="dropdown-item" href="{% url 'chat:index' %}">
+                  Mensagens
+                  <span class="badge badge-primary">2</span>
+                  <span class="sr-only">mensagens não lidas</span>
+                </a>
                 {% if user.tipo == 'P' %}
                   <a class="dropdown-item" href="{% url 'restrito:atividade_lista' %}">Atividades</a>
                 {% endif %}

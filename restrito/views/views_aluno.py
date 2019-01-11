@@ -34,19 +34,3 @@ def turma_aluno(request, id_do):
     }
     return render(request, 'restrito/turma.html', context)
 
-@login_required
-@user_passes_test(checa_aluno)
-def entrega_form_aluno(request, id_do, id_vin):
-    context = {}
-    vinculada = get_object_or_404(AtividadeVinculada, id=id_vin)
-    entrega = get_object_or_404(Entrega, id=id, aluno=request.user.aluno) if id_entrega else None
-    form = EntregaAlunoForm(request.POST or None, instance=entrega)
-    if request.POST and form.is_valid():
-        entrega = form.save(commit=False)
-        entrega.atividade_vinculada = vinculada
-        entrega.aluno = request.user.aluno
-        entrega.save()
-        return redirect('restrito:turma', id_do=id_do)
-    context["form"] = form
-    context['atividade'] = vinculada
-    return render(request, 'restrito/entrega_form.html', context)

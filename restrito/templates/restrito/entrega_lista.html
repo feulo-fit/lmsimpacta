@@ -9,7 +9,16 @@
     <h1>Entregas de {{ atividade }}</h1>
     <ul class="list-group">
         {% for entrega in entregas %}
-            <li class="list-group-item"> {{ entrega }} </li>
+            <li class="list-group-item d-flex flex-row justify-content-between">
+                <div class="d-flex flex-grow-1 justify-content-between">
+                    <h2 class="mb-1">{{ entrega }}</h2>
+                    <small>{{ entrega.get_status_display }}</small>
+                    <p class="w-100">Realizado em {{ entrega.data_entrega }}</p>
+                </div>
+                <div class="px-3 d-flex flex-column justify-content-around">
+                    <a class="btn btn-primary w-100" href="{% url 'restrito:atividade_form' id=atividade.id %}" role="button">Corrigir</a>
+                </div>
+            </li>
         {% empty %}
             <li class="list-group-item alert alert-warning" role="alert">
                 Nenhuma entrega realizada ainda!
