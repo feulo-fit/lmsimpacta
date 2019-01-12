@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from contas.models import Aluno
 from curriculo.models import DisciplinaOfertada as DO
-from restrito.forms import AtividadeForm, AtividadeVinculadaForm, EntregaAlunoForm
+from restrito.forms import AtividadeForm, AtividadeVinculadaForm, EntregaAlunoForm, SolicitacaoMatriculaForm
 from restrito.models import Atividade, AtividadeVinculada, Entrega
 from lmsimpacta.utils import checa_aluno, checa_professor, get_semestre_atual
 
@@ -121,6 +121,21 @@ def entrega_listar(request, id_do, id_vin):
         "atividade": vinculada
     }
     return render(request, 'restrito/entrega_lista.html', context)
+
+@login_required
+@user_passes_test(checa_aluno)
+def matricula_lista(request):
+    context = {}
+
+    return render(request, "restrito/matricula_lista.html", context)
+
+@login_required
+@user_passes_test(checa_aluno)
+def matricula_solicitar(request):
+    context = {
+        "disciplinas": DO.objects.disciplinas_disponiveis()
+    }
+    return render(request, "restrito/matricula_solicitar.html", context)
 
 @login_required
 @user_passes_test(checa_aluno)

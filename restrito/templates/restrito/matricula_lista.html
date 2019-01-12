@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    Solicitação de Matrícula
+{% endblock titulo %}
+
+{% block main %}
+<section class="container container-fluid">
+    <h1>Solicitações de Matrícula</h1>
+    <a class="btn btn-success my-2" href="{% url 'restrito:matricula_solicitar' %}" role="button">Solicitar</a>
+    <ul class="list-group">
+        {% for atividade in atividades %}
+            <li class="list-group-item d-flex flex-row justify-content-between">
+                <div>
+                    <div class="d-flex flex-grow-1 justify-content-between">
+                        <h2 class="mb-1">{{ atividade.titulo }}</h2>
+                        <small>{{ atividade.get_tipo_display }}</small>
+                    </div>
+                    <p class="mb-1">{{ atividade.descricao }}</p>
+                </div>
+                <div class="px-3 d-flex flex-column justify-content-around">
+                    <a class="btn btn-primary w-100" href="{% url 'restrito:atividade_form' id=atividade.id %}" role="button">Alterar</a>
+                    <a class="btn btn-danger w-100" onclick="javascirpt:confirmar(event, '{{ atividade }}', this.href);" href="{% url 'restrito:atividade_remover' id=atividade.id %}" role="button">Remover</a>
+                </div>
+            </li>
+        {% empty %}
+            <li class="list-group-item alert alert-warning" role="alert">
+                Nenhuma matrícula solicitada!
+            </li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock main %}

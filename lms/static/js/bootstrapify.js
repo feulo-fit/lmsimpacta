@@ -5,5 +5,8 @@ for(let i = 0; i < inputs.length; i++){
         inputs[i].classList.add("form-control-file")
     } else {
         inputs[i].classList.add("form-control")
+        if(i == 0) {
+            inputs[i].focus()
+        }
     }
 }

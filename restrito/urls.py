@@ -5,6 +5,8 @@ from . import views
 app_name = 'restrito'
 urlpatterns = [
     path('', views.home, name='home'),
+    path('matriculas/', views.matricula_lista, name="matricula_lista"),
+    path('matriculas/solicitar/', views.matricula_solicitar, name="matricula_solicitar"),
     path('turma/<int:id_do>/', views.turma, name='turma'),
     path('turma/<int:id_do>/atividade/', views.atividade_vinculada_form, name='vinculada_form'),
     path('turma/<int:id_do>/atividade/<int:id_vin>/', views.atividade_vinculada_form, name='vinculada_form'),

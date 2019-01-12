@@ -2,12 +2,21 @@ from django.db import models
 from django.db.models.query import QuerySet
 from django.shortcuts import reverse
 from django.urls import reverse
+from django.utils import timezone
 
 from contas.models import Coordenador, Professor
 from curriculo.models import Curso, Disciplina, Turma
 from lmsimpacta.utils import get_semestre_atual
 
 class DisciplinaOfertadaQuery(QuerySet):
+
+    def disciplinas_disponiveis(self):
+        agora = timezone.now()
+        qs = self.filter(
+            dt_inicio_matricula__lte=agora,
+            dt_fim_matricula__gte=agora
+        )
+        return qs
 
     def disciplinas_semestre(self, perfil, ano, semestre):
         qs = self.annotate(num_alunos=models.Count(
