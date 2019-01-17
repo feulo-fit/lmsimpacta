@@ -19,9 +19,6 @@
 </section>
 <section class="cursos atuais container">
     <h2>Meus cursos de {{ ano }}/{{ semestre }}</h2>
-    {% if user.tipo == 'A' %}
-        <a class="btn btn-primary" href="{% url 'restrito:matricula_lista' %}" role="button">Solicitar Matrícula</a>
-    {% endif %}
     <div class="card-deck">
         {% for curso in cursos_atuais %}
             <div class="card border-secondary" style="max-width: 18em;">

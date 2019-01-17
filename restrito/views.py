@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from contas.models import Aluno
 from curriculo.models import DisciplinaOfertada as DO
 from restrito.forms import AtividadeForm, AtividadeVinculadaForm, EntregaAlunoForm, SolicitacaoMatriculaForm
-from restrito.models import Atividade, AtividadeVinculada, Entrega
+from restrito.models import Atividade, AtividadeVinculada, Entrega, SolicitacaoMatricula as SM
 from lmsimpacta.utils import checa_aluno, checa_professor, get_semestre_atual
 
 @login_required
@@ -125,16 +125,26 @@ def entrega_listar(request, id_do, id_vin):
 @login_required
 @user_passes_test(checa_aluno)
 def matricula_lista(request):
-    context = {}
+    context = {
+        "matriculas":SM.objects.filter(aluno=request.user.aluno)
+    }
 
     return render(request, "restrito/matricula_lista.html", context)
 
 @login_required
 @user_passes_test(checa_aluno)
-def matricula_solicitar(request):
-    context = {
-        "disciplinas": DO.objects.disciplinas_disponiveis()
-    }
+def matricula_solicitar(request, id_do=None):
+    context = {}
+
+    if id_do:
+        SM.objects.create(
+            aluno=request.user.aluno,
+            disciplina_ofertada=DO.objects.get(id=id_do)
+        )
+        return redirect("restrito:matricula_lista")
+    else:
+        context["disciplinas"] = DO.objects.disciplinas_disponiveis()
+    
     return render(request, "restrito/matricula_solicitar.html", context)
 
 @login_required

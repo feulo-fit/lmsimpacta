@@ -77,15 +77,17 @@
                 <a class="dropdown-item" href="{{ user.get_absolute_url }}">
                   Área do {{ user.get_tipo_display }}
                 </a>
+                {% if user.tipo == 'P' %}
+                  <a class="dropdown-item" href="{% url 'restrito:atividade_lista' %}">Atividades</a>
+                {% elif user.tipo == 'A' %}
+                  <a class="dropdown-item" href="{% url 'restrito:matricula_lista' %}">Matrícula</a>
+                {% endif %}
+                <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{% url 'chat:index' %}">
                   Mensagens
                   <span class="badge badge-primary">2</span>
                   <span class="sr-only">mensagens não lidas</span>
                 </a>
-                {% if user.tipo == 'P' %}
-                  <a class="dropdown-item" href="{% url 'restrito:atividade_lista' %}">Atividades</a>
-                {% endif %}
-                <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{% url 'contas:alterar' %}">Meus Dados</a>
                 <a class="dropdown-item" href="{% url 'contas:sair' %}">Sair</a>
               </div>

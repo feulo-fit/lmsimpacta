@@ -9,14 +9,21 @@
     <h1 class="text-center">Disciplinas disponíveis para matrícula</h1>
     <ul class="list-group">
         {% for disciplina in disciplinas %}
-            <li class="list-group-item d-flex flex-row justify-content-between">
-                <div>
-                    <div class="d-flex flex-grow-1 justify-content-between">
-                        <h2 class="mb-1">{{ disciplina }}</h2>
-                        <small>{{ atividade.get_tipo_display }}</small>
-                    </div>
-                    <p class="mb-1">{{ atividade.descricao }}</p>
+            <li class="list-group-item d-flex flex-row flex-wrap justify-content-between">
+                <div class="d-flex flex-grow-1 justify-content-between">
+                    <h2 class="mb-1">{{ disciplina.disciplina }}</h2>
+                    <small>{{ disciplina.turma }}</small>
                 </div>
+                <div class="px-3 d-flex flex-column justify-content-around">
+                    <a class="btn btn-success w-100"
+                       onclick="javascript:confirmarSolicitacao(event, '{{ disciplina }}', this.href);"
+                       href="" role="button">
+                       Solicitar
+                    </a>
+                </div>
+                <p class="w-100 mb-1">
+                    <strong>Professor: </strong> {{ disciplina.professor }}
+                </p>
             </li>
         {% empty %}
             <li class="list-group-item alert alert-warning" role="alert">
