@@ -2,7 +2,26 @@ from django.db import models
 from django.db.models.query import QuerySet
 from django.utils import timezone
 
+from lmsimpacta.utils import get_semestre_atual
+
 class SolicitacaoMatriculaQuery(QuerySet):
+
+    def matriculas_anteriores(self, aluno):
+        ano, semestre = get_semestre_atual()
+        return self.filter(
+            aluno=aluno,
+        ).exclude(
+            disciplina_ofertada__turma__ano=ano,
+            disciplina_ofertada__turma__semestre=semestre
+        )
+
+    def matriculas_atuais(self, aluno):
+        ano, semestre = get_semestre_atual()
+        return self.filter(
+            aluno=aluno,
+            disciplina_ofertada__turma__semestre=semestre,
+            disciplina_ofertada__turma__ano=ano
+        )
 
     def matriculas_aprovadas(self, aluno, ano, semestre):
         return self.annotate(num_alunos=models.Count(

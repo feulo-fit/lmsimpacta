@@ -125,8 +125,12 @@ def entrega_listar(request, id_do, id_vin):
 @login_required
 @user_passes_test(checa_aluno)
 def matricula_lista(request):
+    ano, semestre = get_semestre_atual()
     context = {
-        "matriculas":SM.objects.filter(aluno=request.user.aluno)
+        "ano": ano,
+        "semestre": semestre,
+        "matriculas": SM.objects.matriculas_atuais(request.user.aluno),
+        "matriculas_anteriores": SM.objects.matriculas_anteriores(request.user.aluno)
     }
 
     return render(request, "restrito/matricula_lista.html", context)
@@ -141,12 +145,25 @@ def matricula_solicitar(request, id_do=None):
             aluno=request.user.aluno,
             disciplina_ofertada=DO.objects.get(id=id_do)
         )
+        messages.success(request, "Matrícula solicitada com sucesso!")
         return redirect("restrito:matricula_lista")
     else:
-        context["disciplinas"] = DO.objects.disciplinas_disponiveis()
+        context["disciplinas"] = DO.objects.disciplinas_disponiveis(request.user.aluno)
     
     return render(request, "restrito/matricula_solicitar.html", context)
 
+@login_required
+@user_passes_test(checa_aluno)
+def matricula_remover(request, id_sm):
+    sm = get_object_or_404(SM,
+        aluno=request.user.aluno,
+        id=id_sm,
+        status='Solicitada'
+    )
+    sm.delete()
+    messages.success(request, "Matrícula cancelada com sucesso!")
+    return redirect("restrito:matricula_lista")
+    
 @login_required
 @user_passes_test(checa_aluno)
 def entrega_form(request, id_do, id_vin, id_entrega=None):

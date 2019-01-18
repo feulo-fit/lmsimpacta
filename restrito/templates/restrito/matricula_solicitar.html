@@ -17,7 +17,7 @@
                 <div class="px-3 d-flex flex-column justify-content-around">
                     <a class="btn btn-success w-100"
                        onclick="javascript:confirmarSolicitacao(event, '{{ disciplina }}', this.href);"
-                       href="" role="button">
+                       href="{% url 'restrito:matricula_solicitar' id_do=disciplina.id %}" role="button">
                        Solicitar
                     </a>
                 </div>

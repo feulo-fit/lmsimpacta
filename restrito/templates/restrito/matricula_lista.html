@@ -9,24 +9,30 @@
     <h1>Solicitações de Matrícula</h1>
     
     <h2>
-        Semestre Atual
+        Semestre Atual ({{ semestre }}s{{ ano }})
         <a class="btn btn-success my-2" href="{% url 'restrito:matricula_solicitar' %}" role="button">Solicitar</a>
     </h2>
     
-    <ul class="list-group">
+    <ul class="my-2 list-group">
         {% for matricula in matriculas %}
-            <li class="list-group-item d-flex flex-row justify-content-between">
-                <div>
-                    <div class="d-flex flex-grow-1 justify-content-between">
-                        <h2 class="mb-1">{{ matricula.disciplina_ofertada.disciplina }}</h2>
-                        <small>{{ matricula.disciplina_ofertada.turma }}</small>
-                    </div>
-                    <p class="mb-1">{{ atividade.descricao }}</p>
+            <li class="list-group-item d-flex flex-wrap flex-row justify-content-between">
+                <div class="d-flex flex-grow-1 justify-content-between">
+                    <h2 class="mb-1">{{ matricula.disciplina_ofertada.disciplina }}</h2>
+                    <small>{{ matricula.disciplina_ofertada.turma }}</small>
                 </div>
                 <div class="px-3 d-flex flex-column justify-content-around">
-                    <a class="btn btn-primary w-100" href="{% url 'restrito:atividade_form' id=atividade.id %}" role="button">Alterar</a>
-                    <a class="btn btn-danger w-100" onclick="javascirpt:confirmar(event, '{{ atividade }}', this.href);" href="{% url 'restrito:atividade_remover' id=atividade.id %}" role="button">Remover</a>
+                    {% if matricula.status == 'Solicitada' %}
+                    <a class="btn btn-danger w-100"
+                        onclick="javascript:confirmarRemocao(event, '{{ matricula }}', this.href);"
+                        href="{% url 'restrito:matricula_remover' id_sm=matricula.id %}" role="button">
+                        Cancelar
+                    </a>
+                    {% endif %}
                 </div>
+                <p class="w-100 mb-1">
+                    <strong>Professor: </strong> {{ matricula.disciplina_ofertada.professor }}<br/>
+                    <strong>Situação: </strong> {{ matricula.get_status_display }}
+                </p>
             </li>
         {% empty %}
             <li class="list-group-item alert alert-warning" role="alert">
@@ -36,5 +42,23 @@
     </ul>
 
     <h2>Matrículas Anteriores</h2>
+    <ul class="my-2 list-group">
+        {% for matricula in matriculas_anteriores %}
+            <li class="list-group-item d-flex flex-row flex-wrap justify-content-between">
+                <div class="d-flex flex-grow-1 justify-content-between">
+                    <h2 class="mb-1">{{ matricula.disciplina_ofertada.disciplina }}</h2>
+                    <small>{{ matricula.disciplina_ofertada.turma }}</small>
+                </div>
+                <p class="w-100 mb-1">
+                    <strong>Professor: </strong> {{ matricula.disciplina_ofertada.professor }}<br/>
+                    <strong>Situação: </strong> {{ matricula.get_status_display }}
+                </p>
+            </li>
+        {% empty %}
+            <li class="list-group-item alert alert-warning" role="alert">
+                Nenhuma matrícula anterior!
+            </li>
+        {% endfor %}
+    </ul>
 </section>
 {% endblock main %}

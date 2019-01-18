@@ -10,11 +10,13 @@ from lmsimpacta.utils import get_semestre_atual
 
 class DisciplinaOfertadaQuery(QuerySet):
 
-    def disciplinas_disponiveis(self):
+    def disciplinas_disponiveis(self, aluno):
         agora = timezone.now()
         qs = self.filter(
             dt_inicio_matricula__lte=agora,
             dt_fim_matricula__gte=agora
+        ).exclude(
+            solicitacaomatricula__aluno=aluno
         )
         return qs
 
