@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.admin import widgets
 
+from bootstrap_datepicker_plus import DateTimePickerInput
+
 from restrito.models import Atividade, AtividadeVinculada, Entrega, SolicitacaoMatricula
 
 class AtividadeForm(forms.ModelForm):
@@ -14,12 +16,22 @@ class AtividadeVinculadaForm(forms.ModelForm):
     def __init__(self, professor, *args, **kwargs):
         super(AtividadeVinculadaForm, self).__init__(*args, **kwargs)
         self.fields['atividade'].queryset = Atividade.objects.filter(professor=professor)
-        #self.fields['data_inicio'].widget = DateTimePicker()
-        #self.fields['data_fim'].widget = DateTimePicker()
-
+        
     class Meta:
         model = AtividadeVinculada
         exclude = ('professor', 'disciplina_ofertada', 'status')
+        widgets = {
+            'data_inicio': DateTimePickerInput(
+                options={
+                    "format":"DD/MM/YYYY HH:mm"
+                }
+            ),
+            'data_fim': DateTimePickerInput(
+                options={
+                    "format":"DD/MM/YYYY HH:mm"
+                }
+            ),
+        }
 
 class EntregaAlunoForm(forms.ModelForm):
 

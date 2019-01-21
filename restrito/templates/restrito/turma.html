@@ -46,12 +46,12 @@
                                     <small>{{ atividade.get_status_display }}</small>
                                 </div>
                                 <p class="mb-1">{{ atividade.atividade.descricao }}</p>
-                                <p>De {{ atividade.data_inicio|date:'D d M'  }} a {{ atividade.data_fim|date:'D d M' }}</p>
+                                <p>De {{ atividade.data_inicio|date:'d/m H:i'  }} até {{ atividade.data_fim|date:'d/m H:i' }}</p>
                                 <p>
+                                    {{ atividate.entrega }}
                                     {% if user.tipo == 'A' %}
-                                        
-                                    {% else %}
-
+                                    {% elif user.tipo == 'P' %}
+                                        Entregas: {{ atividade.entregas }}
                                     {% endif %}
                                 </p>
                             </div>

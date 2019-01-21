@@ -52,10 +52,10 @@ class DisciplinaOfertada(models.Model):
     objects = DisciplinaOfertadaQuery.as_manager()
 
     def __str__(self):
-        return "{}-{}-{}".format(self.curso.sigla, self.disciplina.nome, self.turma)
+        return "{}-{}-{}".format(self.curso, self.disciplina, self.turma)
 
     def get_absolute_url(self):
-        return reverse("restrito:turma", kwargs={ "id_do": self.id })
+        return reverse("restrito:turma", kwargs={ "id_do": self.pk })
 
     class Meta:
         verbose_name = 'oferta de disciplina'

@@ -4,3 +4,4 @@ pylint-django==2.0.2
 pytest==3.9.3
 pytest-django==3.4.3
 Pillow==5.3.0
+django-bootstrap-datepicker-plus==3.0.5

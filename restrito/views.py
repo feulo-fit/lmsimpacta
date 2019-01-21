@@ -32,7 +32,7 @@ def turma(request, id_do):
             solicitacaomatricula__disciplina_ofertada=do,
             solicitacaomatricula__status='Aprovada'
         ),
-        'atividades':AtividadeVinculada.objects.filter(disciplina_ofertada=do)
+        'atividades':AtividadeVinculada.objects.listar_atividades_turma(request.user, do)
     }
     return render(request, 'restrito/turma.html', context)
 

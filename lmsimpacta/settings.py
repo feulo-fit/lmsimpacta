@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 3rd Party
+    'bootstrap_datepicker_plus',
+    # Meus APPS
     'lms.apps.LmsConfig',
     'contas.apps.ContasConfig',
     'chat.apps.ChatConfig',
