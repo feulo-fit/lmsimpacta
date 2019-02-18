@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 
@@ -14,10 +15,8 @@ def entrar(request):
             login(request, usuario)
             return redirect(usuario.get_absolute_url())
         else:
-            context['mensagem'] = {
-                'texto': 'Usuário ou senha incorretos',
-                'tipo': 'danger'
-            }
+            messages.error(request, "Usuário ou senha incorretos")
+            
     context['form'] = form
     return render(request, 'contas/entrar.html', context)
 
