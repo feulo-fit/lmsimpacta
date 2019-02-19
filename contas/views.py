@@ -46,9 +46,7 @@ def alterar_dados(request):
     
     if request.POST and form.is_valid():
         form.save()
-        messages.success(request, 'Dados alterados com sucesso')        
-    else:
-        mensagem = None
+        messages.success(request, 'Dados alterados com sucesso')
 
     context['form'] = form
     return render(request, 'contas/alterar_dados.html', context)
