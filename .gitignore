@@ -91,4 +91,4 @@ media/
 
 # IDE files
 .env
-.vscode
+.vscode/

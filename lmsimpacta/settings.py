@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     # Meus APPS
     'lms.apps.LmsConfig',
     'contas.apps.ContasConfig',
-    'chat.apps.ChatConfig',
     'curriculo.apps.CurriculoConfig',
     'restrito.apps.RestritoConfig'
 ]

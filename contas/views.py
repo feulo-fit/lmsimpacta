@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 
@@ -14,10 +15,7 @@ def entrar(request):
             login(request, usuario)
             return redirect(usuario.get_absolute_url())
         else:
-            context['mensagem'] = {
-                'texto': 'Usuário ou senha incorretos',
-                'tipo': 'danger'
-            }
+            messages.error(request, 'Usuário ou senha incorretos')
     context['form'] = form
     return render(request, 'contas/entrar.html', context)
 
@@ -30,10 +28,7 @@ def registrar(request):
     form = AlunoCriacaoForm(request.POST or None)
     if request.POST and form.is_valid():
         form.save()
-        context = {
-            "texto":'Registrado com sucesso!',
-            "tipo": "success"
-        }
+        messages.success(request, 'Registrado com sucesso!')
         return redirect("lms:index")
 
     context['form'] = form
@@ -51,13 +46,9 @@ def alterar_dados(request):
     
     if request.POST and form.is_valid():
         form.save()
-        mensagem = {
-            'texto': 'Dados alterados com sucesso',
-            'tipo': 'success'
-        }
+        messages.success(request, 'Dados alterados com sucesso')        
     else:
         mensagem = None
 
     context['form'] = form
-    context['mensagem'] = mensagem
     return render(request, 'contas/alterar_dados.html', context)
